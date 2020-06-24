@@ -1,0 +1,49 @@
+author: Ingo Mohr
+name: 'Push P2 Repo'
+description : Action to push an existing p2 repository to a branch on the Githup repo
+
+inputs:
+  github_token:
+    description: 'the token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}'
+    required: true
+  path-to-pom:
+    description: 'the path to the ``pom.xml`` to build'
+    required: false
+    default: 'pom.xml'
+  path-to-p2-repo-created-by-maven:
+    description: 'the path to where the p2 update site has been built by Maven - i.e. where to find the p2 update site to be pushed'
+    required: false
+    default: 'releng-updatesite/target'
+  path-to-p2-repo-target:
+    description: 'the path to where the p2 update site is supposed to be moved in the Github repo'
+    required: false
+    default: 'updatesite'
+  target-branch-name:
+    description: 'the name of the branch to push the p2 update site to'
+    required: false
+    default: 'builds-master'
+  commit-message:
+    description: 'the commit-message to use for the commit'
+    required: false
+    default: 'github-action: set updatesite'
+  git-user:
+    description: 'the user to be configured for the commit'
+    required: false
+    default: "GitHub Action"
+  git-email:
+    description: 'the email of the user to be configured for the commit'
+    required: false
+    default: 'github-action@users.noreply.github.com'
+outputs:
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{inputs.path-to-pom}}
+    - ${{inputs.path-to-p2-repo-created-by-maven}}
+    - ${{inputs.path-to-p2-repo-target}}
+    - ${{inputs.target-branch-name}}
+    - ${{inputs.commit-message}}
+    - ${{inputs.git-user}}
+    - ${{inputs.git-email}}
+    - ${{inputs.github_token}}
