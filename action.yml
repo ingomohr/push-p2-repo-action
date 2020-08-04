@@ -34,7 +34,6 @@ inputs:
     description: 'the email of the user to be configured for the commit'
     required: false
     default: 'github-action@users.noreply.github.com'
-outputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
