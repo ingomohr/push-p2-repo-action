@@ -16,7 +16,7 @@ github_user=${GITHUB_ACTOR}
 echo "Cleaning up update site folder..."
 rm -r $3
 echo "Configuring author for commit..."
-git config --local user.name "'$6'"
+git config user.name "'$6'"
 git config user.email "'$7'"
 echo "Checking out target branch (creating if necessary)..."
 git checkout -B $4
